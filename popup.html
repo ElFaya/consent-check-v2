@@ -28,6 +28,12 @@
 			opacity: 1;
 		}
 		
+		#resultTable {
+			border-collapse : collapse;
+			background : white;
+			width: 100%
+		}
+		
         #header {
             text-align: center;
             padding-top: 20px;
@@ -46,7 +52,7 @@
 			color: white;
         }
 
-        #analyzeButton {
+        .analyzeButton {
             display: block;
             margin: 0 auto;
             padding: 10px 20px;
@@ -67,9 +73,9 @@
 <body>
     <div id="header">
         <img id="logo" src="images/icon.png" alt="Logo">
-        <div id="title">make your consent worth</div>
+        <div id="title">Vérificateur de ConsentMode V2</div>
     </div>
-    <button id="analyzeButton">Analyze</button>
+    <button id="premium" class="analyzeButton">Get premium</button>
 	 <div id="resultsContainer" class="results"></div>
     <script src="popup.js"></script>
 </body>

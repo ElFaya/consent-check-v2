@@ -149,7 +149,7 @@ function mapUrlsAndGcdValues(urls) {
 // Fonction pour créer le tableau HTML avec les données mappées
 function createTable(mappedData) {
   // Début de la construction du tableau HTML
-  let htmlTable = '<table border="1"><tr><th>Icon</th><th>Service</th><th>GCD</th><th>Statut</th><th>Icone Statut</th></tr>';
+  let htmlTable = '<table id= resultTable border="1"><tr><th>Icon</th><th>Service</th><th>GCD</th><th>Statut</th><th>Icone Statut</th></tr>';
 
    // Itération sur les données mappées
   mappedData.forEach(entry => {
@@ -178,3 +178,6 @@ function createTable(mappedData) {
 // Exemple d'utilisation avec les données mappées
 const mappedData = [];
 
+document.getElementById('premium').addEventListener('click', function() {
+    document.getElementById('premium').innerText = 'Coming Soon...';
+});
