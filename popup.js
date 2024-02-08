@@ -7,6 +7,16 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 /*
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("analyseButton").addEventListener("click", function() {
+    console.log("Button clicked");
+	let urls = [];
+	let mappedData = [];
+    chrome.runtime.sendMessage({ action: "ResetTable" });
+  });
+});*/
+
+/*
 // listen message from: background.js
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse){
     // pushData
@@ -30,12 +40,13 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse){
 
 let urls = [];
 
-function truncateString(str, maxLength){ 
+/*function truncateString(str, maxLength){ 
     if(str.length > maxLength){
         return str.substring(0, maxLength - 3) + '...'; 
     } 
     return str; 
-} 
+} */
+
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "pushData") {
