@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMv2 Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 400px;
+            height: 500px;
+            background: linear-gradient(#e66465, #9198e5);
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+		.results {
+			margin: 0;
+			border-collapse : collapse;
+		}
+		
+		.icons {
+			margin: auto;
+			width: 20px;
+			text-align: center;
+			vertical-align: middle; 
+			opacity: 1;
+		}
+		
+        #header {
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        #logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        #title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #analyzeButton {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        #analyzeButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <img id="logo" src="images/icon128.png" alt="Logo">
+        <div id="title">CMv2 Checker</div>
+    </div>
+    <button id="analyzeButton">Analyze</button>
+	 <div id="resultsContainer" class="results"></div>
+    <script src="popup.js"></script>
+</body>
+</html>

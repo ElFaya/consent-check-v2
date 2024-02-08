@@ -1,0 +1,42 @@
+Requete console minified :
+
+const resourceEntries=performance.getEntriesByType("resource"),filteredEntries=resourceEntries.filter((e=>e.name.includes("google")&&e.name.includes("gcd="))),nameMappings={analytics:"Google Analytics","ga-audiences":"Google Analytics - Audience",googleads:"Google Ads",doubleclick:"DV et Campaign Manager"};filteredEntries.forEach((e=>{let n=e.name.indexOf("?"),a=e.name.substring(0,-1!==n?n:e.name.length),s=e.name.match(/gcd=([^&]*)/)[1],c="";s.includes("e")||s.includes("r")||s.includes("n")||s.includes("v")?c="CMv2 Activé":s.includes("l")?c="CMv2 non paramétré":s.includes("t")&&(c="CMv2 mal paramétré (granted par defaut)");let i=a;Object.keys(nameMappings).forEach((e=>{a.includes(e)&&(i=nameMappings[e])})),console.log({name:i,gcd:s,status:c})}));
+
+
+Requete console full :
+
+const resourceEntries = performance.getEntriesByType("resource");
+const filteredEntries = resourceEntries.filter(entry => entry.name.includes("google") && entry.name.includes("gcd="));
+
+// Table de correspondance
+const nameMappings = {
+    "analytics": "Google Analytics",
+    "ga-audiences": "Google Analytics - Audience",
+    "googleads": "Google Ads",
+    "doubleclick": "DV et Campaign Manager"
+};
+
+filteredEntries.forEach(entry => {
+    const indexOfQuestionMark = entry.name.indexOf("?");
+    const nameUntilQuestionMark = entry.name.substring(0, indexOfQuestionMark !== -1 ? indexOfQuestionMark : entry.name.length);
+    const gcdValue = entry.name.match(/gcd=([^&]*)/)[1];
+    
+    let gcdStatus = "";
+    if (gcdValue.includes('e') || gcdValue.includes('r') || gcdValue.includes('n') || gcdValue.includes('v')) {
+        gcdStatus = "CMv2 Activé";
+    } else if (gcdValue.includes('l')) {
+        gcdStatus = "CMv2 non paramétré";
+    } else if (gcdValue.includes('t')) {
+        gcdStatus = "CMv2 mal paramétré (granted par defaut)";
+    }
+
+    // Traduction du name
+    let translatedName = nameUntilQuestionMark;
+    Object.keys(nameMappings).forEach(key => {
+        if (nameUntilQuestionMark.includes(key)) {
+            translatedName = nameMappings[key];
+        }
+    });
+
+    console.log({ name: translatedName, gcd: gcdValue, status: gcdStatus });
+});
