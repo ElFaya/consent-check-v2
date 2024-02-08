@@ -68,7 +68,7 @@ function getGcdStatusIcon(gcdStatus) {
     case "CMv2 Activé":
       return "images/ok-icon.png";
     case "CMv2 non paramétré":
-      return "images/ko-icon.png";
+      return "images/almost-icon.png";
     case "CMv2 mal paramétré (granted par defaut)":
       return "images/almost-icon.png";
     default:
