@@ -131,6 +131,19 @@ function extractGcdValue(url) {
   return params.get('gcd');
 }
 
+function extractSrcValue(url) {
+  // Replace semicolons with ampersands
+  url = url.replace(/;/g, '&');
+  const params = new URLSearchParams(url);
+  return params.get('src');
+}
+
+function extractCatValue(url) {
+  // Replace semicolons with ampersands
+  url = url.replace(/;/g, '&');
+  const params = new URLSearchParams(url);
+  return params.get('cat');
+}
 // Fonction principale pour mapper les noms de service et récupérer les valeurs de gcd pour chaque URL
 function mapUrlsAndGcdValues(urls) {
   const mappedData = [];
