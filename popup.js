@@ -56,9 +56,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	const mappedData = mapUrlsAndGcdValues(urls);
 	console.log('extractedServiceAndGcd', mappedData);
 	createTable(mappedData);
+	console.log('Liste Service GCD Null', filterNullGcdValue(mappedData))
   }
 });
 
+function filterNullGcdValue(array) {
+  return array.filter(entry => entry.gcdValue === null && entry.serviceName === 'Google Analytics' || entry.serviceName === 'DV & CM' || entry.serviceName === 'Google Ads' );
+}
 
 // Fonction pour obtenir l'icône de statut GCD en fonction du statut
 function getGcdStatusIcon(gcdStatus) {
@@ -121,6 +125,8 @@ function mapServiceName(url) {
 
 // Fonction pour extraire le paramètre gcd d'une URL
 function extractGcdValue(url) {
+  // Replace semicolons with ampersands
+  url = url.replace(/;/g, '&');
   const params = new URLSearchParams(url);
   return params.get('gcd');
 }
@@ -149,7 +155,7 @@ function mapUrlsAndGcdValues(urls) {
 // Fonction pour créer le tableau HTML avec les données mappées
 function createTable(mappedData) {
   // Début de la construction du tableau HTML
-  let htmlTable = '<table id= resultTable border="1"><tr><th>Icon</th><th>Service</th><th>GCD</th><th>Statut</th><th>Icone Statut</th></tr>';
+  let htmlTable = '<table id= resultTable border="1"><tr><th></th><th>Service</th><th>GCD</th><th>Statut</th><th></th></tr>';
 
    // Itération sur les données mappées
   mappedData.forEach(entry => {
@@ -181,3 +187,4 @@ const mappedData = [];
 document.getElementById('premium').addEventListener('click', function() {
     document.getElementById('premium').innerText = 'Coming Soon...';
 });
+
