@@ -11,7 +11,7 @@
             padding: 0;
             width: 400px;
             height: 500px;
-            background: linear-gradient(#e66465, #9198e5);
+            background-image: url("images/wallpaper.png"); // mettez votre *.png ici
             border: 1px solid #ccc;
             border-radius: 10px;
 			justify-content: center;
@@ -41,22 +41,22 @@
         }
 
         #logo {
-            width: 128px;
-            height: 128px;
+            width: 100px;
+            height: 100px;
             border-radius: 70%;
         }
 
         #title {
             font-size: 20px;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
 			color: white;
         }
 
-        .analyzeButton {
+        .tipsButton {
             display: block;
             margin: 10px auto;
-            padding: 10px 20px;
+            padding: 5px 10px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -66,10 +66,12 @@
             transition: background-color 0.3s;
         }
 		#protip {
-			background-color: transparent;
+			display : none;
+			background-color: white;
 			border: none;
 			padding: 0; /* Supprimez le remplissage pour éviter l'espace vide autour du contenu */
 			text-align: left;
+			padding: 5px;
 
 		}
 
@@ -80,7 +82,6 @@
 			background-color: white;
 			color: black;
 			border: none;
-			border-radius: 5px;
 			cursor: pointer;
 			font-size: 9px;
 			transition: background-color 0.3s;
@@ -88,7 +89,7 @@
 			text-align: left;
 		}
 
-		#protip:hover .tips {
+		#protip:hover {
 			background-color: yellow;
 			color : black;	
 		}
@@ -103,16 +104,27 @@
         <img id="logo" src="images/icon.png" alt="Logo">
         <div id="title">Vérificateur de ConsentMode V2</div>
     </div>
-    <button id="premium" class="analyzeButton">Get premium</button>
-	<button id="protip"><span class="tips">
-	<span>Tips : xx </span>
-	<span><strong><em>{{ad_storage}}</em></strong></span>
-	<span> x </span>
-	<span><strong><em>{{analytics_storage}}</em></strong></span>
-	<span> x </span><span><strong><em>{{ad_user_data}}</em></strong></span>
-	<span> x </span><span><strong><em>{{ad_personalization}}</em></strong></span>
-	<span> x</span></span>
-	</button>
+    <button id="premium" class="tipsButton">Show Tips</button>
+	
+<div id="protip" class="tips">
+    <span>Tips : xx </span>
+    <span><strong><em>{{ad_storage}}</em></strong></span>
+    <span> x </span>
+    <span><strong><em>{{analytics_storage}}</em></strong></span>
+    <span> x </span>
+    <span><strong><em>{{ad_user_data}}</em></strong></span>
+    <span> x </span>
+    <span><strong><em>{{ad_personalization}}</em></strong></span>
+    <span> x</span>
+    <br>
+    <ul>
+        <li><strong>p:</strong> valeur <em>denied</em> par <em>défaut</em></li>
+        <li><strong>t:</strong> valeur <em>granted</em> par <em>défaut</em></li>
+        <li><strong>q</strong>, <strong>m</strong> ou <strong>u:</strong> valeur <em>denied</em> lors d’un <em>update</em></li>
+        <li><strong>e</strong>, <strong>r</strong>, <strong>n</strong> ou <strong>v:</strong> valeur <em>granted</em> lors d’un <em>update</em></li>
+        <li><strong>l:</strong> le signal n’a pas été défini</li>
+    </ul>
+</div>
 	
 	<div id="resultsContainer" class="results"></div>
     <script src="popup.js"></script>

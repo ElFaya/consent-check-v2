@@ -55,14 +55,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	console.log('popup.js alimenté' , urls);
 	const mappedData = mapUrlsAndGcdValues(urls);
 	console.log('extractedServiceAndGcd', mappedData);
+	const filteredWrongSetup = mappedData.filter(entry => (entry.gcdStatus === "CMv2 non paramétré" || entry.gcdStatus === "CMv2 mal paramétré (granted par defaut)") && (entry.serviceName === 'Google Analytics' || entry.serviceName === 'DV & CM' || entry.serviceName === 'Google Ads'));
+	const filteredNullGcd = mappedData.filter(entry => (entry.gcdValue === null) && (entry.serviceName === 'Google Analytics' || entry.serviceName === 'DV & CM' || entry.serviceName === 'Google Ads'));
+	console.log('filteredWrongSetup', filteredWrongSetup)
+	console.log('filteredNullGcd', mapFloodlightValue(filteredNullGcd.map(entry => entry.url)));
 	createTable(mappedData);
-	console.log('Liste Service GCD Null', filterNullGcdValue(mappedData))
+	
   }
 });
 
-function filterNullGcdValue(array) {
-  return array.filter(entry => entry.gcdValue === null && entry.serviceName === 'Google Analytics' || entry.serviceName === 'DV & CM' || entry.serviceName === 'Google Ads' );
-}
 
 // Fonction pour obtenir l'icône de statut GCD en fonction du statut
 function getGcdStatusIcon(gcdStatus) {
@@ -88,7 +89,7 @@ function getGcdStatus(gcdValue) {
     return "CMv2 mal paramétré (granted par defaut)";
   } else if (gcdValue.includes('l')) {
     return "CMv2 non paramétré";
-  } else if (gcdValue.includes('e') || gcdValue.includes('r') || gcdValue.includes('n') || gcdValue.includes('v')) {
+  } else if (gcdValue.includes('e') || gcdValue.includes('r') || gcdValue.includes('n') || gcdValue.includes('v') || gcdValue.includes('m') || gcdValue.includes('u') || gcdValue.includes('q')) {
     return "CMv2 Activé";
   }
 }
@@ -129,20 +130,6 @@ function extractGcdValue(url) {
   url = url.replace(/;/g, '&');
   const params = new URLSearchParams(url);
   return params.get('gcd');
-}
-
-function extractSrcValue(url) {
-  // Replace semicolons with ampersands
-  url = url.replace(/;/g, '&');
-  const params = new URLSearchParams(url);
-  return params.get('src');
-}
-
-function extractCatValue(url) {
-  // Replace semicolons with ampersands
-  url = url.replace(/;/g, '&');
-  const params = new URLSearchParams(url);
-  return params.get('cat');
 }
 // Fonction principale pour mapper les noms de service et récupérer les valeurs de gcd pour chaque URL
 function mapUrlsAndGcdValues(urls) {
@@ -198,6 +185,70 @@ function createTable(mappedData) {
 const mappedData = [];
 
 document.getElementById('premium').addEventListener('click', function() {
-    document.getElementById('premium').innerText = 'Coming Soon...';
+    var protip = document.getElementById('protip');
+    if (protip.style.display === "block") {
+        protip.style.display = "none";
+        document.getElementById('premium').innerText = 'Show tips';
+    } else {
+        protip.style.display = "block";
+        document.getElementById('premium').innerText = 'Hide tips';
+    }
 });
+
+
+/////////////////////test //
+
+function extractSrcValue(url) {
+  // Sépare les paramètres de l'URL en un tableau
+  const paramsArray = url.split(/[?&;]/);
+  
+  // Parcourt chaque paramètre pour trouver celui qui commence par "src=" ou "src/"
+  for (const param of paramsArray) {
+    if (param.startsWith('src=') || param.startsWith('src/')) {
+      // Récupère la valeur du paramètre
+      return param.substring(param.indexOf('=') + 1);
+    }
+  }
+  
+  // Retourne null si aucun paramètre "src" n'est trouvé
+  return null;
+}
+
+function extractCatValue(url) {
+  // Replace semicolons with ampersands
+  url = url.replace(/;/g, '&');
+  const params = new URLSearchParams(url);
+  return params.get('cat');
+}
+
+function extractTypeValue(url) {
+  // Replace semicolons with ampersands
+  url = url.replace(/;/g, '&');
+  const params = new URLSearchParams(url);
+  return params.get('type');
+}
+
+function mapFloodlightValue(urls) {
+  const mappedFloodlight = [];
+
+  urls.forEach(url => {
+    const srcValue = extractSrcValue(url);
+    const catValue = extractCatValue(url);
+    const typeValue = extractTypeValue(url); 
+
+    mappedFloodlight.push({
+      url: url,
+	  src: srcValue,
+      service: mapServiceName(url), // Utilisez mapServiceName pour obtenir le nom du service correspondant
+      cat: catValue,
+      Type: typeValue,
+      gcdStatus: getGcdStatus(extractGcdValue(url)), // Obtenez le statut GCD directement en utilisant extractGcdValue
+      gcdValue: extractGcdValue(url) // Utilisez extractGcdValue pour obtenir la valeur GCD directement
+    });
+  });
+
+  return mappedFloodlight;
+}
+
+
 

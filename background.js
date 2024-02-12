@@ -4,7 +4,7 @@ let urls = [];
 
 // Fonction pour filtrer les URLs
 function filterUrls(fileUrl) {
-    return (fileUrl.includes("google") || fileUrl.includes("doubleclick"));
+    return !(fileUrl.includes("criteo") || fileUrl.includes("pinterest") || fileUrl.includes("quantserve"))&& (fileUrl.includes("google") || fileUrl.includes("doubleclick"));
 }
 
 // Écoute des changements de l'onglet actif
