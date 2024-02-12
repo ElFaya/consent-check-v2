@@ -73,8 +73,8 @@ function getGcdStatusIcon(gcdStatus) {
     case "CMv2 Activé":
       return "images/ok-icon.png";
     case "CMv2 non paramétré":
-      return "images/almost-icon.png";
-    case "CMv2 mal paramétré (granted par defaut)":
+      return "images/ko-icon.png";
+    case "CMv2 mal paramétré":
       return "images/almost-icon.png";
     default:
       return "images/unknown-icon.png";
@@ -85,11 +85,11 @@ function getGcdStatusIcon(gcdStatus) {
 function getGcdStatus(gcdValue) {
   if (gcdValue === null) { 
     return "Absence de GCD";
-  } else if (gcdValue.includes('t')) {
-    return "CMv2 mal paramétré (granted par defaut)";
-  } else if (gcdValue.includes('l')) {
+  } else if (gcdValue.includes('u')  || gcdValue.includes('v')){
+    return "CMv2 mal paramétré";
+  } else if (gcdValue.includes('l') || gcdValue.includes('t') || gcdValue.includes('p')) {
     return "CMv2 non paramétré";
-  } else if (gcdValue.includes('e') || gcdValue.includes('r') || gcdValue.includes('n') || gcdValue.includes('v') || gcdValue.includes('m') || gcdValue.includes('u') || gcdValue.includes('q')) {
+  } else if (gcdValue.includes('r') || gcdValue.includes('n') || gcdValue.includes('m') || gcdValue.includes('q')) {
     return "CMv2 Activé";
   }
 }
@@ -194,6 +194,18 @@ document.getElementById('premium').addEventListener('click', function() {
         document.getElementById('premium').innerText = 'Hide tips';
     }
 });
+
+document.getElementById('premium').addEventListener('click', function() {
+    var containerParent = document.getElementById('containerParent');
+    if (containerParent.style.display === "block") {
+        containerParent.style.display = "none";
+        document.getElementById('premium').innerText = 'Show tips';
+    } else {
+        containerParent.style.display = "block";
+        document.getElementById('premium').innerText = 'Hide tips';
+    }
+});
+
 
 
 /////////////////////test //

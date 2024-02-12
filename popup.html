@@ -36,6 +36,32 @@
 			width: 100%
 		}
 		
+		#tipsTableLeft, #tipsTableRight {
+			border : 1px;
+			background : white;
+			width: 90%;
+			border-radius: 10px;
+			text-align: center;
+			font-size : 9px;
+			opacity: 90%;
+		}
+		
+		#containerParent {
+			display: none;
+}
+		#container {
+			display: flex;
+			width: 80%;
+			border-radius: 10px;
+			margin: 5px auto;
+			justify-content: center;
+
+		}
+		
+		.table-wrapper {
+			width: 300px;
+		}
+		
         #header {
             text-align: center;
             padding-top: 20px;
@@ -67,18 +93,18 @@
             transition: background-color 0.3s;
         }
 		#protip {
-			display : none;
+			display: none;
 			background-color: white;
 			border: none;
-			padding: 0; /* Supprimez le remplissage pour éviter l'espace vide autour du contenu */
+			padding: 0;
 			text-align: left;
+			max-height: 70px; /* Limite la hauteur à 70px */
+			overflow: auto; /* Ajoute une barre de défilement en cas de dépassement de la hauteur */
 			padding: 5px;
-
 		}
 
 		.tips {
 			display: block;
-			margin: 10px auto;
 			padding: 10px 5px;
 			background-color: white;
 			color: black;
@@ -86,14 +112,24 @@
 			cursor: pointer;
 			font-size: 9px;
 			transition: background-color 0.3s;
-			width: 100%;
 			text-align: left;
 		}
 
 		#protip:hover {
 			background-color: yellow;
-			color : black;	
+			color: black;
 		}
+
+		.resultIcon {
+			padding: 0; /* Supprime le rembourrage autour de l'icône */
+			max-height: 12px;
+			text-align: left;
+		}
+		.gcd {
+			max-height: 10px;
+			text-align: right;
+		}
+			
 
         #analyzeButton:hover {
             background-color: #45a049;
@@ -108,7 +144,7 @@
     <button id="premium" class="tipsButton">Show Tips</button>
 	
 <div id="protip" class="tips">
-    <span>Tips : xx </span>
+    <span>gcd: xx </span>
     <span><strong><em>{{ad_storage}}</em></strong></span>
     <span> x </span>
     <span><strong><em>{{analytics_storage}}</em></strong></span>
@@ -118,13 +154,93 @@
     <span><strong><em>{{ad_personalization}}</em></strong></span>
     <span> x</span>
     <br>
-    <ul>
-        <li><strong>p:</strong> valeur <em>denied</em> par <em>défaut</em></li>
-        <li><strong>t:</strong> valeur <em>granted</em> par <em>défaut</em></li>
-        <li><strong>q</strong>, <strong>m</strong> ou <strong>u:</strong> valeur <em>denied</em> lors d’un <em>update</em></li>
-        <li><strong>e</strong>, <strong>r</strong>, <strong>n</strong> ou <strong>v:</strong> valeur <em>granted</em> lors d’un <em>update</em></li>
-        <li><strong>l:</strong> le signal n’a pas été défini</li>
-    </ul>
+</div>
+<div id="containerParent">
+<div id="container">
+    <div class="table-wrapper">
+        <table id="tipsTableLeft">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Default</th>
+                    <th>Update</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class='gcd'>q =</td>
+                    <td>denied</td>
+                    <td>denied</td>
+                    <td class="resultIcon"><img class="resultIcon" src="images/ok-icon.png" alt="OK Icon"></td>
+                </tr>
+                <tr>
+                    <td class='gcd'>r =</td>
+                    <td>denied</td>
+                    <td>granted</td>
+                    <td class="resultIcon"><img class="resultIcon" src="images/ok-icon.png" alt="OK Icon"></td>
+                </tr>
+                <tr>
+                    <td class='gcd'>m =</td>
+                    <td>-</td>
+                    <td>denied</td>
+                    <td class="resultIcon"><img class="resultIcon" src="images/ok-icon.png" alt="OK Icon"></td>
+                </tr>
+                <tr>
+                    <td class='gcd'>n =</td>
+                    <td>-</td>
+                    <td>granted</td>
+                    <td class="resultIcon"><img class="resultIcon" src="images/ok-icon.png" alt="OK Icon"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-wrapper">
+        <table id="tipsTableRight">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Default</th>
+                    <th>Update</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class='gcd'>u =</td>
+                    <td>granted</td>
+                    <td>denied</td>
+                    <td class="resultIcon"><img class="resultIcon" src="images/almost-icon.png" alt="Almost Icon"></td>
+                </tr>
+                <tr>
+                    <td class='gcd'>v =</td>
+                    <td>granted</td>
+                    <td>granted</td>
+                    <td class="resultIcon"><img class="resultIcon" src="images/almost-icon.png" alt="Almost Icon"></td>
+                </tr>
+                <tr>
+                    <td class='gcd'>l =</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="resultIcon"><img class="resultIcon" src="images/ko-icon.png" alt="KO Icon"></td>
+                </tr>
+				<tr>
+					<td class='gcd'>t =</td>
+					<td>granted</td>
+					<td>-</td>
+					<td class="resultIcon"><img class="resultIcon" src="images/ko-icon.png" alt="KO Icon"></td>
+				</tr>
+                <tr>
+                    <td class='gcd'>p =</td>
+                    <td>denied</td>
+                    <td>-</td>
+                    <td class="resultIcon"><img class="resultIcon" src="images/ko-icon.png" alt="KO Icon"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </div>
 	
 	<div id="resultsContainer" class="results"></div>
