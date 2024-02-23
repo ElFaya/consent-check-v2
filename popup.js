@@ -55,7 +55,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	console.log('popup.js alimenté' , urls);
 	const mappedData = mapUrlsAndGcdValues(urls);
 	console.log('extractedServiceAndGcd', mappedData);
-	const filteredWrongSetup = mappedData.filter(entry => (entry.gcdStatus === "CMv2 non paramétré" || entry.gcdStatus === "CMv2 mal paramétré (granted par defaut)") && (entry.serviceName === 'Google Analytics' || entry.serviceName === 'DV & CM' || entry.serviceName === 'Google Ads'));
+	const filteredWrongSetup = mappedData.filter(entry => (
+    (["CMv2 non paramétré", "CMv2 mal paramétré", "Granted par défaut !", "Pas d'update !"].includes(entry.gcdStatus)) &&
+    (entry.serviceName === 'Google Analytics' || entry.serviceName === 'DV & CM' || entry.serviceName === 'Google Ads')));
 	const filteredNullGcd = mappedData.filter(entry => (entry.gcdValue === null) && (entry.serviceName === 'Google Analytics' || entry.serviceName === 'DV & CM' || entry.serviceName === 'Google Ads'));
 	console.log('filteredWrongSetup', filteredWrongSetup)
 	console.log('filteredNullGcd', mapFloodlightValue(filteredNullGcd.map(entry => entry.url)));
@@ -71,10 +73,13 @@ function getGcdStatusIcon(gcdStatus) {
     case "Absence de GCD":
       return "images/ko-icon.png";
     case "CMv2 Activé":
+    case "CMv2 Activé sans GA":
       return "images/ok-icon.png";
     case "CMv2 non paramétré":
       return "images/ko-icon.png";
     case "CMv2 mal paramétré":
+    case "Granted par défaut !":
+    case "Pas d'update !":
       return "images/almost-icon.png";
     default:
       return "images/unknown-icon.png";
@@ -85,9 +90,13 @@ function getGcdStatusIcon(gcdStatus) {
 function getGcdStatus(gcdValue) {
   if (gcdValue === null) { 
     return "Absence de GCD";
-  } else if (gcdValue.includes('u')  || gcdValue.includes('v')){
-    return "CMv2 mal paramétré";
-  } else if (gcdValue.includes('l') || gcdValue.includes('t') || gcdValue.includes('p')) {
+  } else if (gcdValue.includes('u') || gcdValue.includes('v') || gcdValue.includes('t')){
+    return "Granted par défaut !";
+  } else if (/^\d{2}(r|n|m|q)\dl\d(r|n|m|q)\d(r|n|m|q)\d/i.test(gcdValue)) {
+    return "CMv2 Activé sans GA";
+  } else if (gcdValue.includes('p')) {
+    return "Pas d'update !";
+  } else if (gcdValue.includes('l')) {
     return "CMv2 non paramétré";
   } else if (gcdValue.includes('r') || gcdValue.includes('n') || gcdValue.includes('m') || gcdValue.includes('q')) {
     return "CMv2 Activé";

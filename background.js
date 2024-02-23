@@ -4,7 +4,15 @@ let urls = [];
 
 // Fonction pour filtrer les URLs
 function filterUrls(fileUrl) {
-    return !(fileUrl.includes("criteo") || fileUrl.includes("pinterest") || fileUrl.includes("outbrain") || fileUrl.includes("quantserve")) && (fileUrl.includes("google") || fileUrl.includes("doubleclick"));
+    return !(
+        fileUrl.includes("criteo") ||
+        fileUrl.includes("pinterest") ||
+        fileUrl.includes("outbrain") ||
+        fileUrl.includes("quantserve") ||
+        fileUrl.includes("facebook") ||
+        fileUrl.includes("adnxs") ||
+        fileUrl === "https://www.google-analytics.com/analytics.js"
+    ) && (fileUrl.includes("google") || fileUrl.includes("doubleclick"));
 }
 
 // Écoute des changements de l'onglet actif
