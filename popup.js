@@ -122,7 +122,7 @@ function getServiceIcon(serviceName) {
 function mapServiceName(url) {
   if (url.includes('analytics') || url.includes('audience')) {
     return "Google Analytics";
-  } else if (url.includes('fls')) {
+  } else if (url.includes('fls') || url.includes('ad.doubleclick')) {
     const match = url.match(/[?&;]~oref=([^&;]*)/);
     if (match) {
       const orefValue = decodeURIComponent(match[1]).toLowerCase();
