@@ -11,7 +11,8 @@ function filterUrls(fileUrl) {
         fileUrl.includes("quantserve") ||
         fileUrl.includes("facebook") ||
         fileUrl.includes("adnxs") ||
-        fileUrl === "https://www.google-analytics.com/analytics.js"
+        fileUrl === "https://www.google-analytics.com/analytics.js" ||
+		fileUrl === "https://www.google-analytics.com/plugins/ua/ec.js"
     ) && (fileUrl.includes("google") || fileUrl.includes("doubleclick"));
 }
 

@@ -109,6 +109,7 @@ function getServiceIcon(serviceName) {
     case "Google Analytics":
       return "images/ga-icon.png";
     case "DV & CM":
+	case "Piggyback":
       return "images/dv-icon.png";
     case "Google Ads":
       return "images/gads-icon.png";
@@ -119,18 +120,22 @@ function getServiceIcon(serviceName) {
 
 // Fonction pour mapper le nom du service en fonction de l'URL
 function mapServiceName(url) {
-  if (url.includes('analytics')) {
-    return "Google Analytics";
-  } else if (url.includes('audience')) {
+  if (url.includes('analytics') || url.includes('audience')) {
     return "Google Analytics";
   } else if (url.includes('fls')) {
+    const match = url.match(/[?&;]~oref=([^&;]*)/);
+    if (match) {
+      const orefValue = decodeURIComponent(match[1]).toLowerCase();
+      if (orefValue.includes("adform") || orefValue.includes("doubleclick")) {
+        return "Piggyback";
+      }
+    }
     return "DV & CM";
-  } else if (url.includes('gads')) {
+  } else if (url.includes('gads') || url.includes('pagead')) {
     return "Google Ads";
-  } else if (url.includes('pagead')) {
-    return "Google Ads";
+  } else {
+    return "Unknown";
   }
-  return "Unknown";
 }
 
 // Fonction pour extraire le paramètre gcd d'une URL
