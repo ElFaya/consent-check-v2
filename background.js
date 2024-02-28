@@ -94,7 +94,7 @@ function linesIcon(urls) {
 
   // Mise à jour du badge avec le nombre de lignes finales
   chrome.action.setBadgeText({text: `${finalRowsCount}`});
-  chrome.action.setBadgeBackgroundColor({ color: [230, 126, 34, 230] });
+  chrome.action.setBadgeBackgroundColor({ color: [230, 126, 34, 230] }); 
 
   // Retourner le nombre de lignes finales
   return finalRowsCount;

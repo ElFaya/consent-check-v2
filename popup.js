@@ -1,4 +1,25 @@
+/*______   __  __                            __  __ ______   __       __ 
+ /      \ /  |/  |                          /  |/  /      \ /  \     /  |
+/$$$$$$  |$$ |$$ |  ______   ________       $$ |$$/$$$$$$  |$$  \   /$$ |
+$$ |__$$ |$$ |$$ | /      \ /        |      $$ |$/$$ |  $$ |$$$  \ /$$$ |
+$$    $$ |$$ |$$ |/$$$$$$  |$$$$$$$$/       $$ |  $$ |  $$ |$$$$  /$$$$ |
+$$$$$$$$ |$$ |$$ |$$    $$ |  /  $$/        $$ |  $$ |  $$ |$$ $$ $$/$$ |
+$$ |  $$ |$$ |$$ |$$$$$$$$/  /$$$$/__       $$ |  $$ \__$$ |$$ |$$$/ $$ |
+$$ |  $$ |$$ |$$ |$$       |/$$      |      $$ |  $$    $$/ $$ | $/  $$ |
+$$/   $$/ $$/ $$/  $$$$$$$/ $$$$$$$$/       $$/    $$$$$$/  $$/      $$/ 
+                                                                         
+	   _            __                                    _ ____        __         __       
+  ____( )___  _____/ /_   ____ ___  ____ ______________  (_) / /__     / /_  ___  / /_  ___ 
+ / ___/// _ \/ ___/ __/  / __ `__ \/ __ `/ ___/ ___/ _ \/ / / / _ \   / __ \/ _ \/ __ \/ _ \
+/ /__  /  __(__  ) /_   / / / / / / /_/ / /  (__  )  __/ / / /  __/  / /_/ /  __/ /_/ /  __/
+\___/  \___/____/\__/  /_/ /_/ /_/\__,_/_/  /____/\___/_/_/_/\___/  /_.___/\___/_.___/\___/ 
+                                                                                            
+*/                                                                                                                                                
+
+
+
 console.log('popup.js');
+
 // onLoad popup
 document.addEventListener("DOMContentLoaded", function(){
     // send message to: background.js
@@ -6,46 +27,8 @@ document.addEventListener("DOMContentLoaded", function(){
     chrome.runtime.sendMessage({action: "pullData"});
 });
 
-/*
-document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("analyseButton").addEventListener("click", function() {
-    console.log("Button clicked");
-	let urls = [];
-	let mappedData = [];
-    chrome.runtime.sendMessage({ action: "ResetTable" });
-  });
-});*/
-
-/*
-// listen message from: background.js
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse){
-    // pushData
-    if(message.action === "pushData"){
-        // found urls
-        if(message.data.length){
-            // popup title
-            document.write('<h2>'+ message.data.length +' URL FOUND</h2>');
-            document.write('<hr />');
-            // loop urls
-            message.data.map(function(url, i){
-                document.write(i+1 + ': ' + truncateString(url, 50) + '<br />');
-            });
-        // no url found
-        }else{
-            document.write('<h2>NO URL FOUND.</h2>');
-        }
-    }
-});
-*/
 
 let urls = [];
-
-/*function truncateString(str, maxLength){ 
-    if(str.length > maxLength){
-        return str.substring(0, maxLength - 3) + '...'; 
-    } 
-    return str; 
-} */
 
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
